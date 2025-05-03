@@ -1,0 +1,18 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: http-filter-redirect
+  namespace: envoy-gateway-system
+spec:
+  parentRefs:
+  - name: lab-gateway
+    namespace: envoy-gateway-system
+    sectionName: http
+  hostnames:
+  - '*.riupie.com'
+  rules:
+  - filters:
+    - type: RequestRedirect
+      requestRedirect:
+        scheme: https
+        statusCode: 301

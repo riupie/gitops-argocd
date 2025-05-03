@@ -1,0 +1,52 @@
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  name: lab-gateway
+  namespace: envoy-gateway-system
+spec:
+  infrastructure:
+    parametersRef:
+      group: gateway.envoyproxy.io
+      kind: EnvoyProxy
+      name: lab-gateway
+  gatewayClassName: envoy-gw
+  listeners:
+    - name: http
+      hostname: "*.riupie.com"
+      protocol: HTTP
+      port: 80
+      allowedRoutes:
+        namespaces:
+          from: All
+    - name: https
+      hostname: "*.riupie.com"
+      protocol: HTTPS
+      port: 443
+      allowedRoutes:
+        namespaces:
+          from: All
+      tls:
+        mode: Terminate
+        certificateRefs:
+          - name: "wildcard-riupie-com-tls"
+            namespace: envoy-gateway-system
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyProxy
+metadata:
+  name: lab-gateway
+  namespace: envoy-gateway-system
+spec:
+  provider:
+    type: Kubernetes
+    kubernetes:
+      envoyDeployment:
+        replicas: 2
+        container:
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 512Mi
