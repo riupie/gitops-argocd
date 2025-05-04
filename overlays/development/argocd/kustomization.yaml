@@ -1,5 +1,6 @@
 resources:
   - ../../../base/argocd/default
+  - project-infra.yaml
 patches:
   - path: patches/argocd-cm.yaml
   - path: patches/argocd-rbac-cm.yaml
