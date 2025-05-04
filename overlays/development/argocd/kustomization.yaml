@@ -1,0 +1,35 @@
+resources:
+  - ../../../base/argocd/default
+patches:
+  - path: patches/argocd-cm.yaml
+  - path: patches/argocd-rbac-cm.yaml
+  - path: patches/argocd-repo-server-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-repo-server
+  - path: patches/argocd-applicationset-controller-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-applicationset-controller
+  - path: patches/argocd-notifications-controller-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-notifications-controller
+  - path: patches/argocd-dex-server-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-dex-server
+  - path: patches/argocd-redis-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-redis

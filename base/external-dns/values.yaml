@@ -1,0 +1,19 @@
+sources:
+  - service
+  - ingress
+  - gateway-httproute
+  - gateway-tlsroute
+  - gateway-tcproute
+  - gateway-udproute
+  - crd
+
+policy: sync
+registry: txt
+txtOwnerId: k8s
+txtPrefix: external-dns-
+
+provider:
+  name: rfc2136
+
+serviceMonitor:
+  enabled: false

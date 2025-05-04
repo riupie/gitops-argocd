@@ -1,0 +1,9 @@
+#kustomization:render
+namespace: cert-manager
+helmCharts:
+- name: cert-manager
+  namespace: cert-manager
+  repo: https://charts.jetstack.io
+  releaseName: cert-manager
+  version: "1.17.2"
+  valuesFile: values.yaml

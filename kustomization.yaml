@@ -1,6 +1,0 @@
-resources:
-- sealed-secrets
-- cert-manager
-- envoy-gateway
-- gateway-route
-- app

@@ -1,0 +1,13 @@
+---
+resources:
+- sealed-secrets-controller-crb.yaml
+- sealed-secrets-controller-deployment.yaml
+- sealed-secrets-controller-key-admin-rb.yaml
+- sealed-secrets-controller-key-admin-role.yaml
+- sealed-secrets-controller-metrics-svc.yaml
+- sealed-secrets-controller-sa.yaml
+- sealed-secrets-controller-service-proxier-rb.yaml
+- sealed-secrets-controller-service-proxier-role.yaml
+- sealed-secrets-controller-svc.yaml
+- sealedsecrets.bitnami.com-crd.yaml
+- secrets-unsealer-cr.yaml

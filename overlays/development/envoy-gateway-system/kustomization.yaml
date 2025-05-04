@@ -1,0 +1,6 @@
+---
+labels:
+  - pairs:
+      env: development
+resources:
+  - ../../../base/envoy-gateway/default

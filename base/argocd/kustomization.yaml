@@ -1,0 +1,37 @@
+#kustomization:render
+namespace: argocd
+resources:
+  - https://raw.githubusercontent.com/argoproj/argo-cd/v2.14.11/manifests/install.yaml
+patches:
+  - path: patches/argocd-repo-server-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-repo-server
+  - path: patches/argocd-applicationset-controller-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-applicationset-controller
+  - path: patches/argocd-notifications-controller-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-notifications-controller
+  - path: patches/argocd-dex-server-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-dex-server
+  - path: patches/argocd-redis-deployment.yaml
+    target:
+      kind: Deployment
+      group: apps
+      version: v1
+      name: argocd-redis
+  - path: patches/argocd-cmd-params-cm.yaml
+  - path: patches/argocd-notifications-secret-secret.yaml

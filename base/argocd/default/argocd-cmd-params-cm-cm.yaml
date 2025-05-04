@@ -1,0 +1,20 @@
+apiVersion: v1
+data:
+  applicationsetcontroller.log.level: warn
+  controller.kubectl.parallelism.limit: "50"
+  controller.log.level: warn
+  controller.metrics.cache.expiration: 24h0m0s
+  controller.operation.processors: "25"
+  controller.repo.server.timeout.seconds: "180"
+  controller.status.processors: "50"
+  notificationscontroller.log.level: warn
+  reposerver.log.level: warn
+  server.insecure: "true"
+  server.log.level: warn
+kind: ConfigMap
+metadata:
+  labels:
+    app.kubernetes.io/name: argocd-cmd-params-cm
+    app.kubernetes.io/part-of: argocd
+  name: argocd-cmd-params-cm
+  namespace: argocd

@@ -1,0 +1,8 @@
+---
+- op: replace
+  path: /spec/template/spec/containers/0/imagePullPolicy
+  value: IfNotPresent
+
+- op: add
+  path: /spec/template/metadata/labels/app
+  value: argocd-applicationset-controller

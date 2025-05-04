@@ -1,0 +1,34 @@
+---
+resources:
+- backendlbpolicies.gateway.networking.k8s.io-crd.yaml
+- backends.gateway.envoyproxy.io-crd.yaml
+- backendtlspolicies.gateway.networking.k8s.io-crd.yaml
+- backendtrafficpolicies.gateway.envoyproxy.io-crd.yaml
+- clienttrafficpolicies.gateway.envoyproxy.io-crd.yaml
+- eg-gateway-helm-certgen-job.yaml
+- eg-gateway-helm-certgen-rb.yaml
+- eg-gateway-helm-certgen-role.yaml
+- eg-gateway-helm-certgen-sa.yaml
+- eg-gateway-helm-envoy-gateway-role-cr.yaml
+- eg-gateway-helm-envoy-gateway-rolebinding-crb.yaml
+- eg-gateway-helm-infra-manager-rb.yaml
+- eg-gateway-helm-infra-manager-role.yaml
+- eg-gateway-helm-leader-election-role-role.yaml
+- eg-gateway-helm-leader-election-rolebinding-rb.yaml
+- envoy-gateway-config-cm.yaml
+- envoy-gateway-deployment.yaml
+- envoy-gateway-sa.yaml
+- envoy-gateway-svc.yaml
+- envoyextensionpolicies.gateway.envoyproxy.io-crd.yaml
+- envoypatchpolicies.gateway.envoyproxy.io-crd.yaml
+- envoyproxies.gateway.envoyproxy.io-crd.yaml
+- gatewayclasses.gateway.networking.k8s.io-crd.yaml
+- gateways.gateway.networking.k8s.io-crd.yaml
+- grpcroutes.gateway.networking.k8s.io-crd.yaml
+- httproutefilters.gateway.envoyproxy.io-crd.yaml
+- httproutes.gateway.networking.k8s.io-crd.yaml
+- referencegrants.gateway.networking.k8s.io-crd.yaml
+- securitypolicies.gateway.envoyproxy.io-crd.yaml
+- tcproutes.gateway.networking.k8s.io-crd.yaml
+- tlsroutes.gateway.networking.k8s.io-crd.yaml
+- udproutes.gateway.networking.k8s.io-crd.yaml

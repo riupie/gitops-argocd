@@ -1,0 +1,8 @@
+---
+resources:
+- dnsendpoints.externaldns.k8s.io-crd.yaml
+- external-dns-cr.yaml
+- external-dns-deployment.yaml
+- external-dns-sa.yaml
+- external-dns-svc.yaml
+- external-dns-viewer-crb.yaml

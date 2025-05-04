@@ -1,0 +1,7 @@
+---
+namespace: kube-system
+labels:
+  - pairs:
+      env: development
+resources:
+  - ../../../base/sealed-secrets/default
