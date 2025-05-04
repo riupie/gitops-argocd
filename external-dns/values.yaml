@@ -1,0 +1,40 @@
+sources:
+  - service
+  - ingress
+  - gateway-httproute
+  - gateway-tlsroute
+  - gateway-tcproute
+  - gateway-udproute
+  - crd
+
+policy: sync
+registry: txt
+txtOwnerId: k8s
+txtPrefix: external-dns-
+
+domainFilters:
+  - lab.riupie.com
+
+provider:
+  name: rfc2136
+env:
+  - name: EXTERNAL_DNS_RFC2136_HOST
+    value: "192.168.10.9"
+  - name: EXTERNAL_DNS_RFC2136_PORT
+    value: "53"
+  - name: EXTERNAL_DNS_RFC2136_ZONE
+    value: lab.riupie.com
+  - name: EXTERNAL_DNS_RFC2136_TSIG_AXFR
+    value: "true"
+  - name: EXTERNAL_DNS_RFC2136_TSIG_KEYNAME
+    value: externaldns-key
+  - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET_ALG
+    value: hmac-sha512 
+  - name: EXTERNAL_DNS_RFC2136_TSIG_SECRET
+    valueFrom:
+      secretKeyRef:
+        name: external-dns-bind9-tsig-key
+        key: ddns-key
+
+serviceMonitor:
+  enabled: false
