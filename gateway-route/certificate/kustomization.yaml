@@ -2,3 +2,4 @@ resources:
   - cloudflare-api-key.yaml
   - cluster-issuer.yaml
   - wildcard-riupie-com.yaml
+  - wildcard-lab-riupie-com.yaml

@@ -1,0 +1,21 @@
+---
+- op: replace
+  path: /spec/template/spec/containers/0/imagePullPolicy
+  value: IfNotPresent
+
+- op: add
+  path: /spec/template/metadata/labels/app
+  value: argocd-redis
+  
+- op: add
+  path: /spec/template/metadata/labels/project
+  value: argocd
+
+- op: replace
+  path: /spec/template/spec/containers/0/resources
+  value:
+    limits:
+      memory: 750Mi
+    requests:
+      cpu: 50m
+      memory: 750Mi

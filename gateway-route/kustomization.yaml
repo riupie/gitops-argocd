@@ -1,5 +1,5 @@
 resources:
 - certificate
 - gateway-class.yaml
-- gateway.yaml
 - wildcard-riupie-com
+- wildcard-lab-riupie-com

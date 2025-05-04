@@ -1,0 +1,17 @@
+---
+- op: replace
+  path: /spec/template/spec/containers/0/imagePullPolicy
+  value: IfNotPresent
+
+- op: add
+  path: /spec/template/metadata/labels/app
+  value: argocd-applicationset-controller
+ 
+- op: replace
+  path: /spec/template/spec/containers/0/resources
+  value:
+    limits:
+      memory: 200Mi
+    requests:
+      cpu: 110m
+      memory: 200Mi

@@ -1,0 +1,15 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: wildcard-lab-riupie-com
+  namespace: envoy-gateway-system
+spec:
+  secretName: wildcard-lab-riupie-com-tls
+  dnsNames:
+    - "*.lab.riupie.com"
+  commonName: "*.lab.riupie.com"
+  issuerRef:
+    name: letsencrypt-production
+    kind: ClusterIssuer
+    group: cert-manager.io
