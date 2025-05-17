@@ -1,2 +1,2 @@
 resources:
-  - address-pool
+  - address-pool.yaml
