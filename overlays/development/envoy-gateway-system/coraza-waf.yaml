@@ -1,0 +1,30 @@
+---
+apiVersion: gateway.envoyproxy.io/v1alpha1
+kind: EnvoyExtensionPolicy
+metadata:
+  name: waf
+  namespace: envoy-gateway-system
+spec:
+  targetRefs:
+    - name: lab-gateway
+      group: gateway.networking.k8s.io
+      kind: Gateway
+  wasm:
+    - name: wasm-filter
+      failOpen: false
+      rootID: waf
+      code:
+        type: Image
+        image:
+          url: ghcr.io/corazawaf/coraza-proxy-wasm:0.5.0
+      config:
+        default_directives: default
+        directives_map:
+          default:
+            [
+              "Include @recommended-conf",
+              "SecRuleEngine On",
+              "SecDebugLogLevel 2",
+              "Include @crs-setup-conf",
+              "Include @owasp_crs/*.conf"
+            ]

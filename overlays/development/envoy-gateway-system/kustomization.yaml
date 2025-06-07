@@ -4,3 +4,4 @@ labels:
       env: development
 resources:
   - ../../../base/envoy-gateway/default
+  - coraza-waf.yaml
