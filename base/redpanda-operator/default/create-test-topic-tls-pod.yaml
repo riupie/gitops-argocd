@@ -1,0 +1,244 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    helm.sh/hook: test
+    helm.sh/hook-delete-policy: before-hook-creation
+    helm.sh/hook-weight: "2"
+  name: create-test-topic-tls
+spec:
+  automountServiceAccountToken: false
+  containers:
+  - command:
+    - /bin/bash
+    - -c
+    - |
+      set -xeuo pipefail
+
+      # Setup for the test
+      mkdir -p /etc/redpanda
+      cat > /etc/redpanda/redpanda.yaml << EOF
+      redpanda:
+      rpk:
+        kafka_api:
+          brokers:
+            - cluster-tls-0.cluster-tls.redpanda-operator.svc.cluster.local:9092
+            - cluster-tls-1.cluster-tls.redpanda-operator.svc.cluster.local:9092
+            - cluster-tls-2.cluster-tls.redpanda-operator.svc.cluster.local:9092
+          tls:
+            enabled: true
+            key_file: /tmp/tls.key
+            cert_file: /tmp/tls.crt
+            truststore_file: /tmp/ca.crt
+      EOF
+      curl -Ls https://dl.k8s.io/${KUBECTL_VERSION}/bin/linux/amd64/kubectl -o /tmp/kubectl-${KUBECTL_VERSION}
+      echo "$(curl -Ls https://dl.k8s.io/${KUBECTL_VERSION}/bin/linux/amd64/kubectl.sha256) /tmp/kubectl-${KUBECTL_VERSION}" | sha256sum --check
+      chmod +x /tmp/kubectl-${KUBECTL_VERSION}
+      KUBECTL=/tmp/kubectl-${KUBECTL_VERSION}
+
+      # Create the Redpanda resource
+      $KUBECTL -n redpanda-operator apply -f - <<EOF
+      apiVersion: cluster.redpanda.com/v1alpha2
+      kind: Redpanda
+      metadata:
+        name: cluster-tls
+      spec:
+        clusterSpec:
+          console:
+            enabled: false
+          image:
+            repository: docker.redpanda.com/redpandadata/redpanda
+            tag: v25.1.1
+          listeners:
+            admin:
+              external: {}
+              port: 9644
+              tls:
+                cert: ""
+                enabled: false
+                requireClientAuth: false
+            http:
+              authenticationMethod: none
+              enabled: true
+              external: {}
+              kafkaEndpoint: kafka-default
+              port: 8082
+              tls:
+                cert: ""
+                enabled: false
+                requireClientAuth: false
+            kafka:
+              authenticationMethod: none
+              external: {}
+              port: 9092
+              tls:
+                cert: kafka-internal-0
+                enabled: true
+                requireClientAuth: false
+            rpc:
+              port: 33145
+          logging:
+            logLevel: trace
+            usageStats:
+              enabled: false
+          resources:
+            cpu:
+              cores: 1
+            memory:
+              container:
+                max: 2Gi
+                min: 2Gi
+          statefulset:
+            replicas: 3
+          storage:
+            persistentVolume:
+              enabled: true
+              size: 100Gi
+          tls:
+            certs:
+              kafka-internal-0:
+                caEnabled: true
+            enabled: true
+      ---
+      apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: cluster-tls-user-client
+      spec:
+        emailAddresses:
+          - test@domain.dom
+        duration: 43800h0m0s
+        issuerRef:
+          group: cert-manager.io
+          kind: Issuer
+          name: cluster-tls-kafka-internal-0-root-issuer
+        privateKey:
+          algorithm: ECDSA
+          size: 256
+        secretName: cluster-tls-user-client
+
+      EOF
+
+      # Wait for things to be ready
+      $KUBECTL -n redpanda-operator wait --for=condition=Ready --timeout=10m redpanda/cluster-tls
+      $KUBECTL -n redpanda-operator wait --for=jsonpath='{.metadata.name}'=cluster-tls-user-client --timeout=10m secret/cluster-tls-user-client
+      $KUBECTL -n redpanda-operator get secret cluster-tls-user-client -o go-template='{{ base64decode (index .data "tls.crt") }}' > /tmp/tls.crt
+      $KUBECTL -n redpanda-operator get secret cluster-tls-user-client -o go-template='{{ base64decode (index .data "tls.key") }}' > /tmp/tls.key
+      $KUBECTL -n redpanda-operator get secret cluster-tls-user-client -o go-template='{{ base64decode (index .data "ca.crt") }}' > /tmp/ca.crt
+
+      # Make sure Redpanda works
+      rpk topic create test -v
+
+      # Clean up
+      $KUBECTL -n redpanda-operator delete -f - <<EOF
+      apiVersion: cluster.redpanda.com/v1alpha2
+      kind: Redpanda
+      metadata:
+        name: cluster-tls
+      spec:
+        clusterSpec:
+          console:
+            enabled: false
+          image:
+            repository: docker.redpanda.com/redpandadata/redpanda
+            tag: v25.1.1
+          listeners:
+            admin:
+              external: {}
+              port: 9644
+              tls:
+                cert: ""
+                enabled: false
+                requireClientAuth: false
+            http:
+              authenticationMethod: none
+              enabled: true
+              external: {}
+              kafkaEndpoint: kafka-default
+              port: 8082
+              tls:
+                cert: ""
+                enabled: false
+                requireClientAuth: false
+            kafka:
+              authenticationMethod: none
+              external: {}
+              port: 9092
+              tls:
+                cert: kafka-internal-0
+                enabled: true
+                requireClientAuth: false
+            rpc:
+              port: 33145
+          logging:
+            logLevel: trace
+            usageStats:
+              enabled: false
+          resources:
+            cpu:
+              cores: 1
+            memory:
+              container:
+                max: 2Gi
+                min: 2Gi
+          statefulset:
+            replicas: 3
+          storage:
+            persistentVolume:
+              enabled: true
+              size: 100Gi
+          tls:
+            certs:
+              kafka-internal-0:
+                caEnabled: true
+            enabled: true
+      ---
+      apiVersion: cert-manager.io/v1
+      kind: Certificate
+      metadata:
+        name: cluster-tls-user-client
+      spec:
+        emailAddresses:
+          - test@domain.dom
+        duration: 43800h0m0s
+        issuerRef:
+          group: cert-manager.io
+          kind: Issuer
+          name: cluster-tls-kafka-internal-0-root-issuer
+        privateKey:
+          algorithm: ECDSA
+          size: 256
+        secretName: cluster-tls-user-client
+
+      EOF
+      $KUBECTL -n redpanda-operator delete pvc --all
+    env:
+    - name: KUBECTL_VERSION
+      value: v1.27.4
+    image: docker.redpanda.com/redpandadata/redpanda:latest
+    name: rpk
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access
+      readOnly: true
+  restartPolicy: Never
+  serviceAccount: redpanda-controller-operator
+  volumes:
+  - name: kube-api-access
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace

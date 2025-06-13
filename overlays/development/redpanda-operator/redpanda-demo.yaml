@@ -1,0 +1,18 @@
+apiVersion: cluster.redpanda.com/v1alpha2
+kind: Redpanda
+metadata:
+  name: redpanda-demo
+  namespace: redpanda-operator
+spec:
+  chartRef:
+    useFlux: false
+  clusterSpec:
+    tls:
+      enabled: false
+    external:
+      domain: lab.riupie.com
+    statefulset:
+      replicas: 1
+      initContainers:
+        setDataDirOwnership:
+          enabled: true
