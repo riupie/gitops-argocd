@@ -1,0 +1,10 @@
+#kustomization:render
+helmCharts:
+  - name: operator
+    repo: https://charts.redpanda.com
+    namespace: redpanda-operator
+    version: 2.4.2
+    releaseName: redpanda-controller
+    valuesFile: values.yaml
+resources:
+  - https://github.com/redpanda-data/redpanda-operator//operator/config/crd?ref=v2.4.2

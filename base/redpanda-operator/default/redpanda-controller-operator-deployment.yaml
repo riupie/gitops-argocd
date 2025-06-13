@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app.kubernetes.io/instance: redpanda-controller
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: operator
+    app.kubernetes.io/version: v2.4.2
+    helm.sh/chart: operator-v2.4.2
+  name: redpanda-controller-operator
+  namespace: redpanda-operator
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/instance: redpanda-controller
+      app.kubernetes.io/name: operator
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations: {}
+      creationTimestamp: null
+      labels:
+        app.kubernetes.io/instance: redpanda-controller
+        app.kubernetes.io/name: operator
+    spec:
+      automountServiceAccountToken: false
+      containers:
+      - args:
+        - --health-probe-bind-address=:8081
+        - --metrics-bind-address=:8443
+        - --leader-elect
+        - --webhook-enabled=false
+        - --namespace=redpanda-operator
+        - --log-level=info
+        command:
+        - /manager
+        env: []
+        image: docker.redpanda.com/redpandadata/redpanda-operator:v2.4.2
+        imagePullPolicy: IfNotPresent
+        livenessProbe:
+          httpGet:
+            path: /healthz/
+            port: 8081
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        name: manager
+        ports:
+        - containerPort: 9443
+          name: webhook-server
+          protocol: TCP
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 8081
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        resources:
+          limits:
+            cpu: 100m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 512Mi
+        securityContext:
+          allowPrivilegeEscalation: false
+        volumeMounts:
+        - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+          name: kube-api-access
+          readOnly: true
+      ephemeralContainers: null
+      imagePullSecrets: []
+      initContainers: []
+      nodeSelector: {}
+      securityContext:
+        runAsUser: 65532
+      serviceAccountName: redpanda-controller-operator
+      terminationGracePeriodSeconds: 10
+      tolerations: []
+      volumes:
+      - name: kube-api-access
+        projected:
+          defaultMode: 420
+          sources:
+          - serviceAccountToken:
+              expirationSeconds: 3607
+              path: token
+          - configMap:
+              items:
+              - key: ca.crt
+                path: ca.crt
+              name: kube-root-ca.crt
+          - downwardAPI:
+              items:
+              - fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.namespace
+                path: namespace

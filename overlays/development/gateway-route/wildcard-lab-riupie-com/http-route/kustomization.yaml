@@ -1,3 +1,4 @@
 resources:
   - http-redirect.yaml
   - argocd.yaml
+  - redpanda-console.yaml

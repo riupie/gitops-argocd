@@ -1,0 +1,36 @@
+---
+resources:
+- buckets.source.toolkit.fluxcd.io-crd.yaml
+- clusters.redpanda.vectorized.io-crd.yaml
+- consoles.redpanda.vectorized.io-crd.yaml
+- create-test-topic-tls-pod.yaml
+- gitrepositories.source.toolkit.fluxcd.io-crd.yaml
+- helmcharts.source.toolkit.fluxcd.io-crd.yaml
+- helmreleases.helm.toolkit.fluxcd.io-crd.yaml
+- helmrepositories.source.toolkit.fluxcd.io-crd.yaml
+- ocirepositories.source.toolkit.fluxcd.io-crd.yaml
+- redpanda-controller-operator-additional-controllers-crb.yaml
+- redpanda-controller-operator-additional-controllers-cr.yaml
+- redpanda-controller-operator-additional-controllers-rb.yaml
+- redpanda-controller-operator-additional-controllers-role.yaml
+- redpanda-controller-operator-compat-crb.yaml
+- redpanda-controller-operator-compat-cr.yaml
+- redpanda-controller-operator-compat-rb.yaml
+- redpanda-controller-operator-compat-role.yaml
+- redpanda-controller-operator-config-cm.yaml
+- redpanda-controller-operator-crb.yaml
+- redpanda-controller-operator-cr.yaml
+- redpanda-controller-operator-deployment.yaml
+- redpanda-controller-operator-election-role-rb.yaml
+- redpanda-controller-operator-election-role-role.yaml
+- redpanda-controller-operator-metrics-reader-cr.yaml
+- redpanda-controller-operator-metrics-service-svc.yaml
+- redpanda-controller-operator-rb.yaml
+- redpanda-controller-operator-role.yaml
+- redpanda-controller-operator-rpk-bundle-rb.yaml
+- redpanda-controller-operator-rpk-bundle-role.yaml
+- redpanda-controller-operator-sa.yaml
+- redpandas.cluster.redpanda.com-crd.yaml
+- schemas.cluster.redpanda.com-crd.yaml
+- topics.cluster.redpanda.com-crd.yaml
+- users.cluster.redpanda.com-crd.yaml
