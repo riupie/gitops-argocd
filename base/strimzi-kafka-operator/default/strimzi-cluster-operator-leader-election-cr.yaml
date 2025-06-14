@@ -1,0 +1,30 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-0.46.0
+    component: role
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-leader-election
+rules:
+- apiGroups:
+  - coordination.k8s.io
+  resources:
+  - leases
+  verbs:
+  - create
+- apiGroups:
+  - coordination.k8s.io
+  resourceNames:
+  - strimzi-cluster-operator
+  resources:
+  - leases
+  verbs:
+  - get
+  - list
+  - watch
+  - delete
+  - patch
+  - update

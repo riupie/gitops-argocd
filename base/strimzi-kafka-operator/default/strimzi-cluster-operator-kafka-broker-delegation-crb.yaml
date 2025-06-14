@@ -1,0 +1,18 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-0.46.0
+    component: broker-role-binding
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-cluster-operator-kafka-broker-delegation
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: strimzi-kafka-broker
+subjects:
+- kind: ServiceAccount
+  name: strimzi-cluster-operator
+  namespace: kafka

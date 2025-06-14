@@ -1,0 +1,55 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app: strimzi
+    chart: strimzi-kafka-operator-0.46.0
+    component: entity-operator-role
+    heritage: Helm
+    release: strimzi-kafka-operator
+  name: strimzi-entity-operator
+rules:
+- apiGroups:
+  - kafka.strimzi.io
+  resources:
+  - kafkatopics
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - patch
+  - update
+  - delete
+- apiGroups:
+  - kafka.strimzi.io
+  resources:
+  - kafkausers
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - patch
+  - update
+- apiGroups:
+  - kafka.strimzi.io
+  resources:
+  - kafkatopics/status
+  - kafkausers/status
+  verbs:
+  - get
+  - patch
+  - update
+- apiGroups:
+  - ""
+  resources:
+  - secrets
+  verbs:
+  - get
+  - list
+  - watch
+  - create
+  - delete
+  - patch
+  - update

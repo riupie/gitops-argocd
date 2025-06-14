@@ -1,0 +1,29 @@
+---
+resources:
+- kafkabridges.kafka.strimzi.io-crd.yaml
+- kafkaconnectors.kafka.strimzi.io-crd.yaml
+- kafkaconnects.kafka.strimzi.io-crd.yaml
+- kafkamirrormaker2s.kafka.strimzi.io-crd.yaml
+- kafkanodepools.kafka.strimzi.io-crd.yaml
+- kafkarebalances.kafka.strimzi.io-crd.yaml
+- kafkas.kafka.strimzi.io-crd.yaml
+- kafkatopics.kafka.strimzi.io-crd.yaml
+- kafkausers.kafka.strimzi.io-crd.yaml
+- strimzi-cluster-operator-cm.yaml
+- strimzi-cluster-operator-crb.yaml
+- strimzi-cluster-operator-deployment.yaml
+- strimzi-cluster-operator-entity-operator-delegation-rb.yaml
+- strimzi-cluster-operator-global-cr.yaml
+- strimzi-cluster-operator-kafka-broker-delegation-crb.yaml
+- strimzi-cluster-operator-kafka-client-delegation-crb.yaml
+- strimzi-cluster-operator-leader-election-cr.yaml
+- strimzi-cluster-operator-leader-election-rb.yaml
+- strimzi-cluster-operator-namespaced-cr.yaml
+- strimzi-cluster-operator-rb.yaml
+- strimzi-cluster-operator-sa.yaml
+- strimzi-cluster-operator-watched-cr.yaml
+- strimzi-cluster-operator-watched-rb.yaml
+- strimzi-entity-operator-cr.yaml
+- strimzi-kafka-broker-cr.yaml
+- strimzi-kafka-client-cr.yaml
+- strimzipodsets.core.strimzi.io-crd.yaml

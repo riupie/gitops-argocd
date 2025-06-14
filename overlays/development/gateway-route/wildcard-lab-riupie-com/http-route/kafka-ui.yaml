@@ -1,0 +1,21 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: kafka-ui-httproute
+  namespace: kafka
+spec:
+  parentRefs:
+  - name: internal-lab-gateway
+    namespace: envoy-gateway-system
+    sectionName: https
+  hostnames:
+  - 'kafka-ui.lab.riupie.com'
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: kafka-ui
+          namespace: kafka
+          port: 80
