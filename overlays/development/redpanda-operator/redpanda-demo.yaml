@@ -7,6 +7,12 @@ spec:
   chartRef:
     useFlux: false
   clusterSpec:
+    connectors:
+      enabled: true
+      deployment:
+        create: false
+      connectors:
+        bootstrapServers: "redpanda-demo-0.redpanda-demo.redpanda.svc.cluster.local.:9093"
     tls:
       enabled: false
     external:
