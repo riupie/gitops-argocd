@@ -8,11 +8,12 @@ spec:
     useFlux: false
   clusterSpec:
     config:
-      connect:
-        enabled: true
-        clusters:
-          - name: data-connect-cluster
-            address: data-connect-cluster-connect-api.kafka.svc.cluster.local:8083
+      cluster:
+        connect:
+          enabled: true
+          clusters:
+            - name: data-connect-cluster
+              address: data-connect-cluster-connect-api.kafka.svc.cluster.local:8083
     tls:
       enabled: false
     external:
