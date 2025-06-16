@@ -1,4 +1,4 @@
 namespace: kafka
 resources:
   - ../../../base/strimzi-kafka-operator/default
-#  - kafka-demo.yaml
+  - kafka-demo.yaml
