@@ -7,12 +7,12 @@ spec:
   chartRef:
     useFlux: false
   clusterSpec:
-    connectors:
-      enabled: true
-      deployment:
-        create: false
-      connectors:
-        bootstrapServers: "redpanda-demo-0.redpanda-demo.redpanda.svc.cluster.local.:9093"
+    config:
+      connect:
+        enabled: true
+        clusters:
+          - name: data-connect-cluster
+            address: data-connect-cluster-connect-api.kafka.svc.cluster.local:8083
     tls:
       enabled: false
     external:

@@ -1,4 +1,4 @@
 namespace: redpanda-operator
 resources:
   - ../../../base/redpanda-operator/default
-#  - redpanda-demo.yaml
+  - redpanda-demo.yaml
