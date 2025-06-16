@@ -1,0 +1,19 @@
+image:
+  registry: ghcr.io
+  repository: kafbat/kafka-ui
+  pullPolicy: IfNotPresent
+  tag: "main"
+yamlApplicationConfig:
+  kafka:
+    clusters:
+      - name: kafka-demo
+        bootstrapServers:  kafka-demo-kafka-bootstrap.kafka.svc.cluster.local:9092
+        kafkaConnect:
+          - name: data-connect-cluster
+            address: http://data-connect-cluster-connect-api:8083
+  auth:
+    type: disabled
+  management:
+    health:
+      ldap:
+        enabled: false

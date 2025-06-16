@@ -1,0 +1,12 @@
+#kustomization:render
+---
+namespace: kafka
+resources:
+  - https://github.com/strimzi/strimzi-kafka-operator/releases/download/0.46.0/strimzi-crds-0.46.0.yaml
+helmCharts:
+  - name: strimzi-kafka-operator
+    repo: https://strimzi.io/charts/
+    namespace: kafka
+    version: 0.46.0
+    releaseName: strimzi-kafka-operator
+    valuesFile: values.yaml
