@@ -7,9 +7,9 @@ spec:
   chartRef:
     useFlux: false
   clusterSpec:
-    config:
-      cluster:
-        connect:
+    console:
+      console:
+        kafkaConnect:
           enabled: true
           clusters:
             - name: data-connect-cluster
