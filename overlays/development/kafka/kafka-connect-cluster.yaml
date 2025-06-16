@@ -11,7 +11,7 @@ metadata:
 spec:
   version: 4.0.0
   replicas: 1
-  bootstrapServers: redpanda-demo-0.redpanda-demo.redpanda-operator.svc.cluster.local.:9092
+  bootstrapServers: redpanda-demo-0.redpanda-demo.redpanda-operator.svc.cluster.local.:9093
   build:
     output:
       type: docker
