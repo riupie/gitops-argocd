@@ -1,0 +1,11 @@
+namespace: ceph-csi-rbd
+helmCharts:
+- name: ceph-csi-rbd
+  repo: https://ceph.github.io/csi-charts
+  namespace: ceph-csi-rbd
+  releaseName: ceph-csi-rbd
+  version: 3.14.2
+  valuesFile: values.yaml
+  includeCRDs: true
+resources:
+  - csi-rbd-secret.yaml

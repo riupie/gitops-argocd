@@ -1,0 +1,41 @@
+---
+rbac:
+  create: true
+csiConfig:
+  - clusterID: "47c6b1da-6271-43a2-9e52-50183ee3fa7e"
+    monitors:
+      - "192.168.10.20:6789"
+      - "192.168.10.21:6789"
+      - "192.168.10.22:6789"
+logLevel: 5
+sidecarLogLevel: 1
+storageClass:
+  create: true
+  name: csi-rbd-sc
+  annotations:
+    storageclass.kubernetes.io/is-default-class: "true"
+  clusterID: 47c6b1da-6271-43a2-9e52-50183ee3fa7e
+  pool: kubernetes
+  imageFeatures: "layering"
+  provisionerSecretNamespace: "ceph-csi-rbd"
+  controllerExpandSecret: csi-rbd-secret
+  controllerExpandSecretNamespace: "ceph-csi-rbd"
+  nodeStageSecret: csi-rbd-secret
+  nodeStageSecretNamespace: "ceph-csi-rbd"
+  fstype: ext4
+  reclaimPolicy: Delete
+  allowVolumeExpansion: true
+
+secret:
+  create: false
+  name: csi-rbd-secret
+cephconf: |
+  [global]
+    auth_cluster_required = cephx
+    auth_service_required = cephx
+    auth_client_required = cephx
+
+kubeletDir: /var/lib/k0s/kubelet # Directory where kubelet is running
+configMapName: ceph-csi-config
+externallyManagedConfigmap: false
+cephConfConfigMapName: ceph-config
