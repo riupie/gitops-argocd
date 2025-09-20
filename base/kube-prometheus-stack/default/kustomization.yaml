@@ -11,6 +11,8 @@ resources:
 - kube-prometheus-stack-admission-role.yaml
 - kube-prometheus-stack-admission-sa.yaml
 - kube-prometheus-stack-admission-validatingwebhookconfiguration.yaml
+- kube-prometheus-stack-apiserver-servicemonitor.yaml
+- kube-prometheus-stack-kubelet-servicemonitor.yaml
 - kube-prometheus-stack-kube-state-metrics-crb.yaml
 - kube-prometheus-stack-kube-state-metrics-cr.yaml
 - kube-prometheus-stack-kube-state-metrics-deployment.yaml

@@ -7,3 +7,10 @@ helmCharts:
     releaseName: kube-prometheus-stack
     valuesFile: values.yaml
     includeCRDs: true
+patches:
+  - path: patches/kube-prometheus-stack-operator-cr.yaml
+    target:
+      group: rbac.authorization.k8s.io
+      version: v1
+      kind: ClusterRole
+      name: kube-prometheus-stack-operator

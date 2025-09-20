@@ -105,3 +105,30 @@ rules:
   - storageclasses
   verbs:
   - get
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - endpoints
+  verbs:
+  - list
+- apiGroups:
+  - ""
+  resources:
+  - services
+  - endpoints
+  - pods
+  verbs:
+  - watch
+- apiGroups:
+  - ""
+  resources:
+  - nodes/metrics
+  - nodes/stats
+  verbs:
+  - get
+- nonResourceURLs:
+  - /metrics
+  - /metrics/cadvisor
+  verbs:
+  - get

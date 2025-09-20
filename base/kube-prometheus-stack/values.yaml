@@ -13,6 +13,8 @@ prometheusOperator:
 
 prometheus:
   enabled: false
+  prometheusSpec:
+    replicas: 0
 
 grafana:
   enabled: false
@@ -26,20 +28,11 @@ nodeExporter:
 kubeStateMetrics:
   enabled: true
 
-prometheus-node-exporter:
-  enabled: false
-
-kube-state-metrics:
-  enabled: false
-
-kubernetesServiceMonitors:
-  enabled: false
-
 kubeApiServer:
-  enabled: false
+  enabled: true
 
 kubelet:
-  enabled: false
+  enabled: true
 
 kubeControllerManager:
   enabled: false

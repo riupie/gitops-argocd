@@ -7,23 +7,23 @@ metadata:
 spec:
   serviceMonitorSelector: 
     matchLabels:
-      prometheus: main
-      release: prometheus-operator
+      app.kubernetes.io/part-of: kube-prometheus-stack
+      release: kube-prometheus-stack
   serviceMonitorNamespaceSelector: {}
   probeSelector: 
     matchLabels:
-      prometheus: main
-      release: prometheus-operator
+      app.kubernetes.io/part-of: kube-prometheus-stack
+      release: kube-prometheus-stack
   probeNamespaceSelector: {}
   podMonitorSelector: 
     matchLabels:
-      prometheus: main
-      release: prometheus-operator
+      app.kubernetes.io/part-of: kube-prometheus-stack
+      release: kube-prometheus-stack
   podMonitorNamespaceSelector: {}
   ruleSelector: 
     matchLabels:
-      prometheus: main
-      release: prometheus-operator
+      app.kubernetes.io/part-of: kube-prometheus-stack
+      release: kube-prometheus-stack
   ruleNamespaceSelector: {}
   podMetadata:
     labels:
@@ -51,7 +51,8 @@ spec:
     runAsUser: 1000
     runAsNonRoot: true
     runAsGroup: 65534
-    fsGroup: 2000   
+    fsGroup: 2000
+  serviceAccountName: kube-prometheus-stack-operator
   externalLabels:
     environment: development
     cluster-id: lab-cluster

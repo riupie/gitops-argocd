@@ -1,0 +1,42 @@
+- op: add
+  path: /rules/-
+  value:
+    apiGroups:
+    - ""
+    resources:
+    - services
+    - endpoints
+    verbs:
+    - list
+
+- op: add
+  path: /rules/-
+  value:
+    apiGroups:
+    - ""
+    resources:
+    - services
+    - endpoints
+    - pods
+    verbs:
+    - watch
+
+- op: add
+  path: /rules/-
+  value:
+    apiGroups:
+    - ""
+    resources:
+    - nodes/metrics
+    - nodes/stats
+    verbs:
+    - get
+
+- op: add
+  path: /rules/-
+  value:
+    nonResourceURLs: 
+      - /metrics
+      - /metrics/cadvisor
+    verbs:
+      - get
