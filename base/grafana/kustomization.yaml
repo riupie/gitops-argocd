@@ -1,0 +1,10 @@
+#kustomization:render
+---
+namespace: monitoring
+helmCharts:
+  - name: grafana
+    repo: https://grafana.github.io/helm-charts
+    namespace: monitoring
+    #version: 8.10.1
+    releaseName: grafana
+    valuesFile: values.yaml

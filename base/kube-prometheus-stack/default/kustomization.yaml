@@ -1,0 +1,33 @@
+---
+resources:
+- alertmanagerconfigs.monitoring.coreos.com-crd.yaml
+- alertmanagers.monitoring.coreos.com-crd.yaml
+- kube-prometheus-stack-admission-crb.yaml
+- kube-prometheus-stack-admission-create-job.yaml
+- kube-prometheus-stack-admission-cr.yaml
+- kube-prometheus-stack-admission-mutatingwebhookconfiguration.yaml
+- kube-prometheus-stack-admission-patch-job.yaml
+- kube-prometheus-stack-admission-rb.yaml
+- kube-prometheus-stack-admission-role.yaml
+- kube-prometheus-stack-admission-sa.yaml
+- kube-prometheus-stack-admission-validatingwebhookconfiguration.yaml
+- kube-prometheus-stack-kube-state-metrics-crb.yaml
+- kube-prometheus-stack-kube-state-metrics-cr.yaml
+- kube-prometheus-stack-kube-state-metrics-deployment.yaml
+- kube-prometheus-stack-kube-state-metrics-sa.yaml
+- kube-prometheus-stack-kube-state-metrics-servicemonitor.yaml
+- kube-prometheus-stack-kube-state-metrics-svc.yaml
+- kube-prometheus-stack-operator-crb.yaml
+- kube-prometheus-stack-operator-cr.yaml
+- kube-prometheus-stack-operator-deployment.yaml
+- kube-prometheus-stack-operator-sa.yaml
+- kube-prometheus-stack-operator-servicemonitor.yaml
+- kube-prometheus-stack-operator-svc.yaml
+- podmonitors.monitoring.coreos.com-crd.yaml
+- probes.monitoring.coreos.com-crd.yaml
+- prometheusagents.monitoring.coreos.com-crd.yaml
+- prometheuses.monitoring.coreos.com-crd.yaml
+- prometheusrules.monitoring.coreos.com-crd.yaml
+- scrapeconfigs.monitoring.coreos.com-crd.yaml
+- servicemonitors.monitoring.coreos.com-crd.yaml
+- thanosrulers.monitoring.coreos.com-crd.yaml

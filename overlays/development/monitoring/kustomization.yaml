@@ -1,0 +1,9 @@
+---
+namespace: monitoring
+labels:
+  - pairs:
+      env: development
+resources:
+  - ../../../base/kube-prometheus-stack/default
+  - grafana
+  - prometheus

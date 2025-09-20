@@ -1,0 +1,4 @@
+resources:
+  - ../../../../base/grafana/default
+  - grafana-admin-secret.yaml
+  - grafana-env-secret.yaml

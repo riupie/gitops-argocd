@@ -1,0 +1,59 @@
+---
+apiVersion: monitoring.coreos.com/v1
+kind: Prometheus
+metadata:
+  name: prometheus
+  namespace: monitoring
+spec:
+  serviceMonitorSelector: 
+    matchLabels:
+      prometheus: main
+      release: prometheus-operator
+  serviceMonitorNamespaceSelector: {}
+  probeSelector: 
+    matchLabels:
+      prometheus: main
+      release: prometheus-operator
+  probeNamespaceSelector: {}
+  podMonitorSelector: 
+    matchLabels:
+      prometheus: main
+      release: prometheus-operator
+  podMonitorNamespaceSelector: {}
+  ruleSelector: 
+    matchLabels:
+      prometheus: main
+      release: prometheus-operator
+  ruleNamespaceSelector: {}
+  podMetadata:
+    labels:
+      env: development
+      project: monitoring
+  image: quay.io/prometheus/prometheus:v3.5.0
+  imagePullPolicy: IfNotPresent
+  replicas: 1
+  retention: 1d
+  logLevel: info
+  walCompression: true
+  storage:
+    volumeClaimTemplate:
+      spec:
+        resources:
+          requests:
+            storage: 5Gi
+  resources:
+    requests:
+      cpu: "100m"
+      memory: 1Gi
+    limits:
+      memory: 1Gi
+  securityContext:
+    runAsUser: 1000
+    runAsNonRoot: true
+    runAsGroup: 65534
+    fsGroup: 2000   
+  externalLabels:
+    environment: development
+    cluster-id: lab-cluster
+  enableAdminAPI: true
+  disableCompaction: true

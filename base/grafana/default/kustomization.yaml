@@ -1,0 +1,11 @@
+---
+resources:
+- grafana-clusterrolebinding-crb.yaml
+- grafana-clusterrole-cr.yaml
+- grafana-cm.yaml
+- grafana-deployment.yaml
+- grafana-persistentvolumeclaim.yaml
+- grafana-rb.yaml
+- grafana-role.yaml
+- grafana-sa.yaml
+- grafana-svc.yaml
