@@ -15,7 +15,14 @@ metadata:
 spec:
   endpoints:
   - honorLabels: true
+    interval: 60s
     port: http
+    relabelings:
+    - regex: (.*)
+      replacement: lab-cluster
+      sourceLabels:
+      - __address__
+      targetLabel: cluster
   jobLabel: app.kubernetes.io/name
   selector:
     matchLabels:

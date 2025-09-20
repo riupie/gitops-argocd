@@ -28,6 +28,21 @@ nodeExporter:
 kubeStateMetrics:
   enabled: true
 
+kube-state-metrics:
+  rbac:
+    create: true
+  releaseLabel: true
+  prometheus:
+    monitor:
+      enabled: true
+      interval: "60s"
+      honorLabels: true
+      relabelings:
+        - sourceLabels: [__address__]
+          regex: '(.*)'
+          targetLabel: cluster
+          replacement: 'lab-cluster'
+
 kubeApiServer:
   enabled: true
 
